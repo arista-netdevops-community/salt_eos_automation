@@ -1,0 +1,835 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+    
+    
+      
+        <title>install - Salt Arista EOS automation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bc7e593a.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab28b872.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffc105">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="amber" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#to-start-the-lab" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Salt Arista EOS automation" class="md-header-nav__button md-logo" aria-label="Salt Arista EOS automation">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Salt Arista EOS automation
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              install
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Salt Arista EOS automation" class="md-nav__button md-logo" aria-label="Salt Arista EOS automation">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Salt Arista EOS automation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Why Salt?
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Why Salt?" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Why Salt?
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../salt-general/" class="md-nav__link">
+      Purpose of this repo
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      install
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="install" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        install
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../prerequisite/" class="md-nav__link">
+      prerequisite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        install
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      install
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#to-start-the-lab" class="md-nav__link">
+    To start the lab
+  </a>
+  
+    <nav class="md-nav" aria-label="To start the lab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-the-ceoslab-file" class="md-nav__link">
+    Import the ceoslab file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-docker-salt-container-for-this-lab" class="md-nav__link">
+    Create the docker salt container for this lab
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-docker-topo" class="md-nav__link">
+    Install docker-topo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-docker-topo-and-salt-docker-container" class="md-nav__link">
+    Run docker topo and salt Docker container.
+  </a>
+  
+    <nav class="md-nav" aria-label="Run docker topo and salt Docker container.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#this-will-create-the-infrastructure-described-within-the-base_labyml-file" class="md-nav__link">
+    This will create the infrastructure described within the base_lab.yml file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examining-the-lab" class="md-nav__link">
+    Examining the lab
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#console-into-the-lab-start-the-salt-minions-and-accept-the-keys" class="md-nav__link">
+    Console into the lab Start the salt-minions and accept the keys.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-salt-keys-salt-key-l-and-accept-the-salt-keys-from-the-minions-salt-key-a" class="md-nav__link">
+    List the salt keys (salt-key -L) and accept the salt-keys from the minions (salt-key -A)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provide-a-test-ping-for-all-minions-salt-testping" class="md-nav__link">
+    Provide a test ping for all minions (salt '*' test.ping)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destroy-the-lab" class="md-nav__link">
+    Destroy the lab
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Salt Arista Labs
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Salt Arista Labs" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Salt Arista Labs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basic_bgp/" class="md-nav__link">
+      basic bgp
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../filestructure/" class="md-nav__link">
+      Salt File structure
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../minions/" class="md-nav__link">
+      Proxy minions and agents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../bus/" class="md-nav__link">
+      ZeroMQ bus
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../grains/" class="md-nav__link">
+      Grains
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../pillars/" class="md-nav__link">
+      Pillars
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../states/" class="md-nav__link">
+      States
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../reactors/" class="md-nav__link">
+      Reactors
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../forumlas.md" class="md-nav__link">
+      Forumlas
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cherryapi/" class="md-nav__link">
+      Salt api
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../sproxy/" class="md-nav__link">
+      Sproxy
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../saltmines/" class="md-nav__link">
+      Salt mines
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../links/" class="md-nav__link">
+      Salt Links
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#to-start-the-lab" class="md-nav__link">
+    To start the lab
+  </a>
+  
+    <nav class="md-nav" aria-label="To start the lab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-the-ceoslab-file" class="md-nav__link">
+    Import the ceoslab file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-docker-salt-container-for-this-lab" class="md-nav__link">
+    Create the docker salt container for this lab
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-docker-topo" class="md-nav__link">
+    Install docker-topo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-docker-topo-and-salt-docker-container" class="md-nav__link">
+    Run docker topo and salt Docker container.
+  </a>
+  
+    <nav class="md-nav" aria-label="Run docker topo and salt Docker container.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#this-will-create-the-infrastructure-described-within-the-base_labyml-file" class="md-nav__link">
+    This will create the infrastructure described within the base_lab.yml file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examining-the-lab" class="md-nav__link">
+    Examining the lab
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#console-into-the-lab-start-the-salt-minions-and-accept-the-keys" class="md-nav__link">
+    Console into the lab Start the salt-minions and accept the keys.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-salt-keys-salt-key-l-and-accept-the-salt-keys-from-the-minions-salt-key-a" class="md-nav__link">
+    List the salt keys (salt-key -L) and accept the salt-keys from the minions (salt-key -A)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provide-a-test-ping-for-all-minions-salt-testping" class="md-nav__link">
+    Provide a test ping for all minions (salt '*' test.ping)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destroy-the-lab" class="md-nav__link">
+    Destroy the lab
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>install</h1>
+                
+                <h2 id="to-start-the-lab">To start the lab</h2>
+<h4 id="import-the-ceoslab-file">Import the ceoslab file</h4>
+<p><code>docker import cEOS-lab-4.23.2F.tar.xz ceosimage:4.23.2f</code></p>
+<h4 id="create-the-docker-salt-container-for-this-lab">Create the docker salt container for this lab</h4>
+<p><code>docker create --name salt -dit -v $PWD/salt_files/:/srv/salt -p 8999:8999 --network=base_lab_net-0 burnyd/salt</code></p>
+<h4 id="install-docker-topo">Install docker-topo</h4>
+<p><code>pip install git+https://github.com/networkop/docker-topo.git</code></p>
+<h4 id="run-docker-topo-and-salt-docker-container">Run docker topo and salt Docker container.</h4>
+<p><code>docker-topo --create base.yml &amp;&amp; docker-topo --create base_lab.yml &amp;&amp; docker start salt</code></p>
+<h6 id="this-will-create-the-infrastructure-described-within-the-base_labyml-file">This will create the infrastructure described within the base_lab.yml file</h6>
+<h4 id="examining-the-lab">Examining the lab</h4>
+<pre><code>docker ps 
+
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                                                 NAMES
+79d74ab70901        ceosimage:4.23.2F   &quot;/sbin/init systemd.…&quot;   28 seconds ago      Up 25 seconds       0.0.0.0:8801-&gt;80/tcp, 0.0.0.0:9001-&gt;443/tcp, 0.0.0.0:7001-&gt;6030/tcp   base_lab_Leaf2
+0eeaa096e20e        ceosimage:4.23.2F   &quot;/sbin/init systemd.…&quot;   31 seconds ago      Up 28 seconds       0.0.0.0:8800-&gt;80/tcp, 0.0.0.0:9000-&gt;443/tcp, 0.0.0.0:7000-&gt;6030/tcp   base_lab_Leaf1
+296b86bea528        ceosimage:4.23.2F   &quot;/sbin/init systemd.…&quot;   33 seconds ago      Up 31 seconds       0.0.0.0:8803-&gt;80/tcp, 0.0.0.0:9003-&gt;443/tcp, 0.0.0.0:7003-&gt;6030/tcp   base_lab_Spine2
+111f7ce06ede        ceosimage:4.23.2F   &quot;/sbin/init systemd.…&quot;   35 seconds ago      Up 33 seconds       0.0.0.0:8802-&gt;80/tcp, 0.0.0.0:9002-&gt;443/tcp, 0.0.0.0:7002-&gt;6030/tcp   base_lab_Spine1
+37a2dfecbdfb        70133de29164        &quot;/bin/sh -c 'tail -f…&quot;   40 seconds ago      Up 40 seconds ago         0.0.0.0:8999-&gt;8999/tcp                                                salt
+</code></pre>
+<h4 id="console-into-the-lab-start-the-salt-minions-and-accept-the-keys">Console into the lab Start the salt-minions and accept the keys.</h4>
+<pre><code>docker exec -it salt bash 
+
+service salt-master start
+
+salt-proxy --proxyid=base_lab_Spine2 -d
+salt-proxy --proxyid=base_lab_Spine1 -d
+salt-proxy --proxyid=base_lab_Leaf1 -d
+salt-proxy --proxyid=base_lab_Leaf2 -d
+</code></pre>
+<h4 id="list-the-salt-keys-salt-key-l-and-accept-the-salt-keys-from-the-minions-salt-key-a">List the salt keys (salt-key -L) and accept the salt-keys from the minions (salt-key -A)</h4>
+<pre><code>salt-key -L
+
+Accepted Keys:
+Denied Keys:
+Unaccepted Keys:
+base_lab_Leaf1
+base_lab_Leaf2
+base_lab_Spine1
+base_lab_Spine2
+
+salt-key -A
+The following keys are going to be accepted:
+Unaccepted Keys:
+base_lab_Leaf1
+base_lab_Leaf2
+base_lab_Spine1
+base_lab_Spine2
+</code></pre>
+<h4 id="provide-a-test-ping-for-all-minions-salt-testping">Provide a test ping for all minions (salt '*' test.ping)</h4>
+<pre><code>Proceed? [n/Y] Y
+Key for minion base_lab_Leaf1 accepted.
+Key for minion base_lab_Leaf2 accepted.
+Key for minion base_lab_Spine1 accepted.
+Key for minion base_lab_Spine2 accepted.
+
+salt '*' test.ping
+base_lab_Leaf2:
+    True
+base_lab_Spine2:
+    True
+base_lab_Spine1:
+    True
+base_lab_Leaf1:
+    True
+</code></pre>
+<h4 id="destroy-the-lab">Destroy the lab</h4>
+<p><code>docker-topo --destroy base.yml &amp;&amp; docker-topo --create base_lab.yml &amp;&amp; docker stop salt</code></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../prerequisite/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                prerequisite
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../basic_bgp/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                basic bgp
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.6a3d08fc.min.js"></script>
+      <script src="../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
