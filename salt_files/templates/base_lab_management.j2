@@ -1,0 +1,12 @@
+ip access-list copp
+   10 permit ip any any
+!
+system control-plane
+   ip access-group copp in
+!
+management api http-commands
+   protocol http
+   no shutdown
+!
+management api gnmi
+   transport grpc default

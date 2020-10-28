@@ -1,0 +1,158 @@
+daemon TerminAttr
+   exec /usr/bin/TerminAttr -ingestgrpcurl=192.168.0.5:9910 -taillogs -ingestauth=key,1a38fe7df56879d685e51b6f0ff86327 -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+   no shutdown
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname spine2
+dns domain arista.lab
+!
+spanning-tree mode mstp
+!
+tacacs-server key 7 070E33455D1D18
+tacacs-server host 192.168.0.4
+!
+aaa authorization exec default local
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret 5 $1$5O85YVVn$HrXcfOivJEnISTMb6xrJc.
+username arista privilege 15 role network-admin secret sha512 $6$tk41vwYg5ZT4iTYK$CC/uNnDsdC/aZ2B57bfnIas5cEKe/kY9lifwbgvi0Qo.9AizVZgqFUnBEUbOxMFEvSa7ChVebjLmqebmG/OCD/
+username arista ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6bJB3TkBEQZ9jNyO1kbdU0P20gZ1D72CvsPNZ5S4bbciBNTT/MHX8GwyLmM9k+ihaHK2JtRhWFcdsm9MojRgjAuzw4wn/6pa92y/93GvaYL//dOBXrHctZsX3PX7TZFL9VVBVA8aFp5iXxEM8uyKWhxnBo/D0eR25Jed4gHVHQMi6Hyh7eKRpE3E6kvRlSkhNikZ5EwdoM7lg2i6rjf7+o3G6isGtxliMZD98N6qWW79U6euS072qkK/q3dfgyHdd8a8MD5VLWbYR9ikhKwpXAmxcFn5aRllqXJ++QAW0NO78noI91ICRxpAuQSzgrntdwXdyFWiqyiD3AxK28qWZ arista@labaccess
+!
+interface Ethernet1
+   shutdown
+!
+interface Ethernet2
+   no switchport
+   ip address 172.16.200.17/30
+!
+interface Ethernet3
+   no switchport
+   ip address 172.16.200.21/30
+!
+interface Ethernet4
+   no switchport
+   ip address 172.16.200.25/30
+!
+interface Ethernet5
+   no switchport
+   ip address 172.16.200.29/30
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Ethernet9
+!
+interface Ethernet10
+!
+interface Ethernet11
+!
+interface Ethernet12
+!
+interface Ethernet13
+!
+interface Ethernet14
+!
+interface Ethernet15
+!
+interface Ethernet16
+!
+interface Ethernet17
+!
+interface Ethernet18
+!
+interface Ethernet19
+!
+interface Ethernet20
+!
+interface Ethernet21
+!
+interface Ethernet22
+!
+interface Ethernet23
+!
+interface Ethernet24
+!
+interface Ethernet25
+!
+interface Ethernet26
+!
+interface Ethernet27
+!
+interface Ethernet28
+!
+interface Ethernet29
+!
+interface Ethernet30
+!
+interface Ethernet31
+!
+interface Ethernet32
+!
+interface Loopback0
+   ip address 172.16.0.2/32
+!
+interface Management1
+   ip address 192.168.0.11/24
+   no lldp transmit
+   no lldp receive
+!
+event-handler iptables-vxlan
+   trigger on-boot
+   action bash sudo iptables -I INPUT 1 -p udp --dport 4789 -j ACCEPT
+   asynchronous
+!
+event-handler ovs-restart
+   trigger on-boot
+   action bash sudo systemctl restart openvswitch
+   delay 30
+   asynchronous
+!
+ip routing
+!
+ip prefix-list rt-conn
+   seq 10 permit 172.16.0.2/32
+!
+route-map rt-conn permit 10
+   match ip address prefix-list rt-conn
+!
+router bgp 65001
+   router-id 172.16.0.2
+   maximum-paths 2 ecmp 2
+   neighbor VTEP peer group
+   neighbor VTEP bfd
+   neighbor VTEP send-community
+   neighbor VTEP maximum-routes 12000
+   neighbor VTEP-EVPN-TRANSIT peer group
+   neighbor VTEP-EVPN-TRANSIT next-hop-unchanged
+   neighbor VTEP-EVPN-TRANSIT update-source Loopback0
+   neighbor VTEP-EVPN-TRANSIT ebgp-multihop
+   neighbor VTEP-EVPN-TRANSIT send-community extended
+   neighbor VTEP-EVPN-TRANSIT maximum-routes 0
+   neighbor 172.16.0.3 peer group VTEP-EVPN-TRANSIT
+   neighbor 172.16.0.3 remote-as 65101
+   neighbor 172.16.0.5 peer group VTEP-EVPN-TRANSIT
+   neighbor 172.16.0.5 remote-as 65103
+   neighbor 172.16.200.18 peer group VTEP
+   neighbor 172.16.200.18 remote-as 65101
+   neighbor 172.16.200.26 peer group VTEP
+   neighbor 172.16.200.26 remote-as 65103
+   redistribute connected route-map rt-conn
+   !
+   address-family evpn
+      bgp next-hop-unchanged
+      neighbor VTEP-EVPN-TRANSIT activate
+   !
+   address-family ipv4
+      no neighbor VTEP-EVPN-TRANSIT activate
+!
+management api http-commands
+   protocol http
+   no shutdown
+!

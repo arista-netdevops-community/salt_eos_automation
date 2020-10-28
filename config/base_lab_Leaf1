@@ -1,0 +1,65 @@
+! Startup-config last modified at  Fri Oct 23 13:15:23 2020 by arista
+! device: leaf1 (cEOSLab, EOS-4.23.2F)
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+logging host 1.2.3.4 514
+!
+hostname leaf1
+!
+spanning-tree mode mstp
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$JLp3YTq546uWAucx$W8J.GiacGTA0c.zkwFYa/JTOyVZY93UwvTeUi.BsJoGeFWsItMXdUTDRHqm6dJX01KZ2gc1jJ4FRF2T2AmAKP.
+username arista privilege 15 secret sha512 $6$EHQh0O5wa.GZw0h/$7TgK17LzV0Sh45HZIotbGHPF9OPWidXaO5c7OB.betS6jlIrvycD3e4mSyCJfEa7JbnfdHQ1n1stdsfP/xuTP/
+!
+interface Ethernet1
+   no switchport
+   ip address 10.0.0.1/30
+!
+interface Ethernet2
+   no switchport
+   ip address 10.1.0.1/30
+!
+interface Ethernet3
+   switchport mode trunk
+!
+interface Ethernet4
+!
+interface Loopback0
+   ip address 1.1.1.1/32
+!
+interface Loopback1
+   ip address 11.11.11.11/32
+!
+ip access-list copp
+   10 permit ip any any
+!
+ip routing
+!
+system control-plane
+   ip access-group copp in
+!
+management api http-commands
+   protocol http
+   no shutdown
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh test
+      port 22
+!
+management api restconf
+   transport https test
+      ssl profile restconf
+!
+management security
+   ssl profile restconf
+      certificate restconf.crt key restconf.key
+!
+end

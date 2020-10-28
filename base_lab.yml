@@ -1,0 +1,19 @@
+links:
+  - endpoints: ["Spine1:eth0", "Spine2:eth0", "Leaf1:eth0", "Leaf2:eth0"]
+    driver: bridge
+  - endpoints: ["Spine1:eth1", "Leaf1:eth1"]
+  - endpoints: ["Spine1:eth2", "Leaf2:eth1"]
+  - endpoints: ["Spine2:eth1", "Leaf1:eth2"]
+  - endpoints: ["Spine2:eth2", "Leaf2:eth2"]
+  - endpoints: ["Leaf1:eth3", "Leaf2:eth3"]
+  - endpoints: ["Leaf1:eth4", "Leaf2:eth4"]
+
+
+VERSION: 2
+driver: macvlan
+CONF_DIR: './config'
+CEOS_IMAGE: ceosimage:4.23.2F
+PUBLISH_BASE:
+  443/tcp: 9000
+  80/tcp: 8800
+  6030/tcp: 7000

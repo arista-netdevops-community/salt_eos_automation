@@ -1,0 +1,39 @@
+site_name: Salt Arista EOS automation
+theme:
+  name: material
+  palette:
+    primary: amber
+  font:
+    text: Roboto 
+  plugins:
+    - search
+  theme:
+    features:
+      - instant
+  icon:
+    repo: fontawesome/brands/git-alt
+nav:
+  - Home: index.md
+  - Why Salt?:
+      - Purpose of this repo: salt-general.md 
+  - install: 
+      - prerequisite: prerequisite.md
+      - install: install.md 
+  - Salt Arista Labs:
+      - basic bgp: basic_bgp.md
+  - Salt File structure: filestructure.md 
+  - Proxy minions and agents: minions.md
+  - ZeroMQ bus: bus.md 
+  - Grains: grains.md 
+  - Pillars: pillars.md 
+  - States: states.md 
+  - Reactors: reactors.md 
+  - Forumlas: forumlas.md 
+  - Salt api: cherryapi.md 
+  - Sproxy: sproxy.md 
+  - Salt mines: saltmines.md
+  - Salt Links: links.md
+
+#repo_url: https://github.com/squidfunk/mkdocs-material
+#repo_name: squidfunk/mkdocs-material
+

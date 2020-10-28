@@ -1,0 +1,184 @@
+{% set hostname = grains.get('host') -%}
+{% set template_location = '/srv/salt/templates/intended/structured_configs/' + hostname + '.yaml' -%}
+{% import_yaml template_location as device_info -%}
+{% if device_info['leaf_allowed_vlans'] is defined and device_info['leaf_allowed_vlans'] is not none -%}
+{% for vlan in device_info['leaf_allowed_vlans'] -%}
+vlan {{ vlan }}
+!
+{% endfor -%}
+{% endif -%}
+{% if device_info['leaf_allowed_vrfs'] is defined and device_info['leaf_allowed_vrfs'] is not none -%}
+{% for vrf in device_info['leaf_allowed_vrfs'] -%}
+vrf instance {{ vrf }}
+!
+{% endfor -%}
+{% endif -%}
+!
+service routing protocols model multi-agent
+!
+{% set vlan_allocation = device_info['vlan_internal_order']['range'] -%}
+vlan internal order ascending range {{ vlan_allocation.beginning }} {{ vlan_allocation.ending }}
+!
+transceiver qsfp default-mode 4x10G
+!
+hostname {{ hostname }}
+!
+spanning-tree mode none
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$4Hh3HEdiGgzbXYGR$WM3lNvPcKmjNfoxeA5fpqoSXpNLkM7D84xMYUME19nqna.4MhvoTQ0SDo3eBSncR8RftDsmxmLX0gCKMtfBhp1
+username arista privilege 15 role network-admin secret sha512 $6$O9x7MCScI/Gbkczt$TFyd73bh9QubmKyZqteauUX7C5BMvUK7EI3jnoR5rqN1p5X9GBTHIxa.yZaN4.UG39nYODcCGcuP9Gn1siKe00
+!
+{% if device_info['port_channel_interfaces'] is defined and device_info['port_channel_interfaces'] is not none -%}
+{%  for port_channel_interface in device_info['port_channel_interfaces']  -%}
+interface {{ port_channel_interface }}
+description {{ device_info['port_channel_interfaces'][port_channel_interface]['description'] }}
+switchport
+switchport mode trunk 
+{% if device_info['port_channel_interfaces']['trunk_groups'] is defined and device_info['port_channel_interfaces']['trunk_groups'] is not none -%}
+switchport trunk group mlag
+{% endif -%}
+!
+{% endfor -%}
+{% endif -%}
+{% if device_info['ethernet_interfaces'] is defined and device_info['ethernet_interfaces'] is not none -%}
+{%  for ethernet_interface in device_info['ethernet_interfaces']  -%}
+interface {{ ethernet_interface }}
+ description {{ device_info['ethernet_interfaces'][ethernet_interface]['description'] }}
+{% if device_info['ethernet_interfaces'][ethernet_interface]['ip_address'] is defined and device_info['ethernet_interfaces'][ethernet_interface]['ip_address'] is not none -%}
+ no switchport
+ ip address {{ device_info['ethernet_interfaces'][ethernet_interface]['ip_address'] }}
+!
+{% endif -%}
+{% if device_info['ethernet_interfaces'][ethernet_interface]['peer_type'] is defined and device_info['ethernet_interfaces'][ethernet_interface]['peer_type'] == 'mlag_peer' -%}
+ switchport 
+ switchport mode trunk 
+ channel-group 1 mode on
+!
+{% endif -%}
+{% endfor -%}
+{% endif -%}
+{% if device_info['loopback_interfaces'] is defined and device_info['loopback_interfaces'] is not none -%}
+{%  for loopback_interface in device_info['loopback_interfaces']  -%}
+interface {{ loopback_interface}}
+ ip address {{ device_info['loopback_interfaces'][loopback_interface]['ip_address'] }}
+!
+{% endfor -%}
+{% endif -%}
+{% if device_info['vlan_interfaces'] is defined and device_info['vlan_interfaces'] is not none -%}
+{%  for vlan_interface in device_info['vlan_interfaces']  -%}
+interface {{ vlan_interface }}
+{% if device_info['vlan_interfaces'][vlan_interface]['vrf'] is defined and device_info['vlan_interfaces'][vlan_interface]['vrf'] is not none -%}
+ vrf {{ device_info['vlan_interfaces'][vlan_interface]['vrf'] }} 
+{% endif -%}
+{% if device_info['vlan_interfaces'][vlan_interface]['no_autostate'] is defined and device_info['vlan_interfaces'][vlan_interface]['no_autostate'] is not none -%}
+ no autostate 
+{% endif -%}
+{% if device_info['vlan_interfaces'][vlan_interface]['mtu'] is defined and device_info['vlan_interfaces'][vlan_interface]['mtu'] is not none -%}
+ mtu {{ device_info['vlan_interfaces'][vlan_interface]['mtu']}}
+{% endif -%}
+ ip address {{ device_info['vlan_interfaces'][vlan_interface]['ip_address'] }}
+!
+{% endfor -%}
+{% endif -%}
+!
+{% if device_info['leaf_mlag'] is defined and device_info['leaf_mlag'] is not none -%}
+mlag configuration
+ domain-id 1
+ local-interface vlan4094
+ peer-address {{ device_info['mlag_configuration']['peer_address'] }}
+!
+{% endif -%}
+{% if device_info['vxlan_tunnel_interface'] is defined and device_info['vxlan_tunnel_interface'] is not none -%}
+interface vxlan1
+ vxlan virtual-router encapsulation mac-address mlag-system-id
+ vxlan source-interface {{ device_info['vxlan_tunnel_interface']['Vxlan1']['source_interface'] }}
+ vxlan udp-port 4789
+{%  for vnivlan in device_info['vxlan_tunnel_interface']['Vxlan1']['vxlan_vni_mappings']['vlans'] -%}
+ vxlan vlan {{ vnivlan }} vni 100{{ vnivlan }}
+{% endfor -%}
+{%  for vnivrf in device_info['vxlan_tunnel_interface']['Vxlan1']['vxlan_vni_mappings']['vrfs'] -%}
+ vxlan vrf {{ vnivrf }} vni 100{{ device_info['vxlan_tunnel_interface']['Vxlan1']['vxlan_vni_mappings']['vrfs'][vnivrf]['vni'] }}
+{% endfor -%}
+!
+{% endif -%}
+ip routing
+{% if device_info['leaf_allowed_vrfs'] is defined and device_info['leaf_allowed_vrfs'] is not none -%}
+{% for routing_vrfs in device_info['leaf_allowed_vrfs'] -%}
+ip routing vrf {{ routing_vrfs }}
+{% endfor -%}
+!
+{% endif -%}
+{% if device_info['ip_virtual_router_mac_address'] is defined and device_info['ip_virtual_router_mac_address'] is not none -%}
+ip virtual-router mac-address {{ device_info['ip_virtual_router_mac_address'] }}
+{% endif -%}
+!
+router bgp {{ device_info['router_bgp']['as'] }}
+ router-id {{ device_info['router_bgp']['router_id'] }}
+{%     for bgp_default in device_info['router_bgp']['bgp_defaults'] -%}
+ {{ bgp_default }}
+{%     endfor -%}
+{%     for peer_groups in device_info['router_bgp']['peer_groups'] -%}
+ neighbor {{ peer_groups }} peer group
+ neighbor {{ peer_groups }} send-community
+ neighbor {{ peer_groups }} maximum-routes 0
+{%     if device_info['router_bgp']['peer_groups'][peer_groups]['next_hop_unchanged'] is defined and device_info['router_bgp']['peer_groups'][peer_groups]['next_hop_unchanged']  == true  -%}
+ neighbor {{ peer_groups }} next-hop-unchanged
+{% endif -%}
+{%     if device_info['router_bgp']['peer_groups'][peer_groups]['update_source'] is defined and device_info['router_bgp']['peer_groups'][peer_groups]['update_source'] is not none  -%}
+ neighbor {{ peer_groups}} update-source {{ device_info['router_bgp']['peer_groups'][peer_groups]['update_source'] }}
+{% endif -%}
+{%     if device_info['router_bgp']['peer_groups'][peer_groups]['remote_as'] is defined and device_info['router_bgp']['peer_groups'][peer_groups]['remote_as'] is not none  -%}
+ neighbor {{ peer_groups}} remote-as {{ device_info['router_bgp']['peer_groups'][peer_groups]['remote_as'] }}
+{% endif -%}
+{%     if device_info['router_bgp']['peer_groups'][peer_groups]['send_community'] is defined and device_info['router_bgp']['peer_groups'][peer_groups]['send_community'] is not none  -%}
+ neighbor {{ peer_groups}} send-community extended
+{% endif -%}
+{% endfor -%}
+{%     for neighbor in device_info['router_bgp']['neighbors'] -%}
+{%     if device_info['router_bgp']['neighbors'][neighbor]['peer_group'] is defined and device_info['router_bgp']['neighbors'][neighbor]['peer_group'] is not none -%}
+ neighbor {{ neighbor }} peer group {{ device_info['router_bgp']['neighbors'][neighbor]['peer_group'] }}
+{% endif -%}
+{% endfor -%}
+{%     for spine_neighbor in device_info['router_bgp']['neighbors'] -%}
+{%     if device_info['router_bgp']['neighbors'][spine_neighbor]['remote_as'] is defined and device_info['router_bgp']['neighbors'][spine_neighbor]['remote_as'] is not none -%}
+neighbor {{ spine_neighbor }} remote-as {{ device_info['router_bgp']['neighbors'][spine_neighbor]['remote_as']}}
+{% endif -%}
+{% endfor -%}
+ redistribute connected
+ redistribute static
+!
+{% if device_info['leaf_allowed_vlans'] is defined and device_info['leaf_allowed_vlans'] is not none -%}
+{% for evpn_vlan in device_info['leaf_allowed_vlans'] -%}
+vlan {{ evpn_vlan }}
+ rd auto 
+ route-target both {{ evpn_vlan}}:{{ evpn_vlan}}
+ redistribute learned
+!
+{% endfor -%}
+{% endif -%}
+address-family evpn
+{% if device_info['leaf_allowed_vlans'] is not defined -%}
+   bgp next-hop-unchanged
+{% endif -%}
+   neighbor EVPN-OVERLAY-PEERS activate
+   !
+   address-family ipv4
+   neighbor IPv4-UNDERLAY-PEERS activate
+{% if device_info['leaf_allowed_vlans'] is defined -%}
+   neighbor MLAG-IPv4-UNDERLAY-PEER activate
+{% endif -%}
+!
+{% if device_info['router_bgp']['vrfs'] is defined and device_info['router_bgp']['vrfs'] is not none -%}
+{% for evpn_vrf in device_info['router_bgp']['vrfs'] -%}
+vrf {{ evpn_vrf }}
+ rd {{ device_info['router_bgp']['vrfs'][evpn_vrf]['rd'] }}
+ route-target export evpn {{ device_info['router_bgp']['vrfs'][evpn_vrf]['route_targets']['import']['asn'] }}
+ route-target export evpn {{ device_info['router_bgp']['vrfs'][evpn_vrf]['route_targets']['import']['asn'] }}
+ redistribute connected
+ redistribute static
+!
+{% endfor -%}
+{% endif -%}
+{% include '/srv/salt/templates/base_lab_management.j2' %}

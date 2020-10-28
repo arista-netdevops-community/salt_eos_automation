@@ -1,0 +1,5 @@
+{
+    "image": "burnyd:salt_eos",
+    "forwardPorts": [8999],
+    "extensions": []
+  }
