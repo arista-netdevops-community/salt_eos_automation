@@ -9,7 +9,7 @@
       
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
@@ -17,10 +17,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.bc7e593a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab28b872.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
         
           
           
@@ -59,14 +59,17 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#installing-sproxy-services" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
+      <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href=".." title="Salt Arista EOS automation" class="md-header-nav__button md-logo" aria-label="Salt Arista EOS automation">
       
@@ -138,9 +141,7 @@
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Salt Arista EOS automation" class="md-nav__button md-logo" aria-label="Salt Arista EOS automation">
       
@@ -411,9 +412,43 @@
     <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Sproxy
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" class="md-nav__link md-nav__link--active">
       Sproxy
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-sproxy-services" class="md-nav__link">
+    Installing sproxy services
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accept-1-proxy-minion" class="md-nav__link">
+    Accept 1 proxy minion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -449,6 +484,41 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-sproxy-services" class="md-nav__link">
+    Installing sproxy services
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accept-1-proxy-minion" class="md-nav__link">
+    Accept 1 proxy minion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -457,7 +527,71 @@
                 
                   <h1>Sproxy</h1>
                 
-                
+                <p>Salt proxies are used a proxy for devices within salt that cannot run an agent locally on the minion.  For example, network switches that cannot run a minion or VMware ESXi that cannot run a linux process for the minion directly within the hypervisor.  When it comes to proxies the proxy should not have to be ran at all times because the only time we really care about the proxy is when we are truly using salt events like rendering configuration or general salt events.</p>
+<p>That being said the salt <a href="https://salt-sproxy.readthedocs.io/en/latest/">super proxy</a> was born(sproxy).  The idea behind the sproxy is that it will not always run in a different location or on the master consuming memory.  The sproxy will only run when the client is then targetting a salt aspect.  </p>
+<h2 id="installing-sproxy-services">Installing sproxy services</h2>
+<pre><code>pip3 install salt-sproxy
+</code></pre>
+<p>check to see if the master is running </p>
+<pre><code>service salt-master status
+</code></pre>
+<p>If not start the salt-master with the following</p>
+<pre><code>service salt-master start 
+</code></pre>
+<h2 id="accept-1-proxy-minion">Accept 1 proxy minion</h2>
+<pre><code>salt-proxy --proxyid=base_lab_Leaf1 -d
+
+root@a00c23e5231c:/srv/salt# salt-key -A
+The following keys are going to be accepted:
+Unaccepted Keys:
+base_lab_Leaf1
+Proceed? [n/Y] Y
+
+root@a00c23e5231c:/srv/salt# salt-key -L
+Accepted Keys:
+base_lab_Leaf1
+Denied Keys:
+Unaccepted Keys:
+Rejected Keys:
+
+root@a00c23e5231c:/srv/salt# salt '*' test.ping
+base_lab_Leaf1:
+    True
+
+
+</code></pre>
+<p>Everything seems to work and we have a proxy running for base_lab_Leaf1.  We do not have a proxy running for the other 3 devices.</p>
+<p>This is where sproxy comes into place.  Because we have a pillar file setup for the other devices sproxy will read the pillar file and know that it typically is a proxy minion.  Lets test this out with base_lab_Leaf2.  Keep in mind the master DOES NOT know that this proxy minion exsits.</p>
+<pre><code>root@a00c23e5231c:/srv/salt# salt-sproxy 'base_lab_Leaf2' test.ping
+base_lab_Leaf2:
+    True
+root@a00c23e5231c:/srv/salt# salt-sproxy 'base_lab_Leaf2' net.cli 'show version'
+base_lab_Leaf2:
+    ----------
+    comment:
+    out:
+        ----------
+        show version:
+             cEOSLab
+            Hardware version:    
+            Serial number:       
+            System MAC address:  0242.c083.e816
+
+            Software image version: 4.23.2F
+            Architecture:           i686
+            Internal build version: 4.23.2F-15405360.4232F
+            Internal build ID:      4cde5c53-3642-4934-8bcc-05691ffd79b3
+
+            cEOS tools version: 1.1
+
+            Uptime:                 2 weeks, 5 days, 17 hours and 13 minutes
+            Total memory:           32970568 kB
+            Free memory:            18791272 kB
+
+    result:
+        True
+</code></pre>
+<p>So the sproxy will run every time the command is listed then it will turn down every time it is finished.  Right now this will work with either a master config or with what is called a roster file.  This makes sproxy a very attractive use case for things like one time rendering the way a typical ansible playbook would work.</p>
                 
               
               
@@ -524,8 +658,8 @@
       
     </div>
     
-      <script src="../assets/javascripts/vendor.6a3d08fc.min.js"></script>
-      <script src="../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
