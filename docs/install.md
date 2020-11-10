@@ -7,7 +7,7 @@ docker import cEOS-lab-4.23.2F.tar.xz ceosimage:4.23.2f
 
 #### Create the docker salt container for this lab
 `
-docker create --name salt -dit -v $PWD/salt_files/:/srv/salt -p 8999:8999 --network=base_lab_net-0 burnyd/salt
+docker create --name salt -v $PWD/salt_files/:/srv/salt -p 8999:8999 --network=base_lab_net-0 burnyd/salt
 `
 #### Install docker-topo
 `
