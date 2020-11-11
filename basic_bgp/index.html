@@ -59,6 +59,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#make-sure-that-all-proxy-minions-are-running" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -284,9 +289,90 @@
     <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        basic bgp
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" class="md-nav__link md-nav__link--active">
       basic bgp
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#make-sure-that-all-proxy-minions-are-running" class="md-nav__link">
+    Make sure that all proxy minions are running.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#salt-state-basic_bgp_rendersls" class="md-nav__link">
+    Salt state basic_bgp_render.sls
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-to-see-if-the-template-will-render" class="md-nav__link">
+    Checking to see if the template will render.
+  </a>
+  
+    <nav class="md-nav" aria-label="Checking to see if the template will render.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rendering-configuration" class="md-nav__link">
+    Rendering configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendering-the-basic_bgp_rendersls-state" class="md-nav__link">
+    rendering the basic_bgp_render.sls state
+  </a>
+  
+    <nav class="md-nav" aria-label="rendering the basic_bgp_render.sls state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pyeapi-salt-module-to-push-config" class="md-nav__link">
+    Using the pyeapi salt module to push config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-or-exec-into-either-devices" class="md-nav__link">
+    SSH or exec into either devices.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -447,6 +533,88 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#make-sure-that-all-proxy-minions-are-running" class="md-nav__link">
+    Make sure that all proxy minions are running.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#salt-state-basic_bgp_rendersls" class="md-nav__link">
+    Salt state basic_bgp_render.sls
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-to-see-if-the-template-will-render" class="md-nav__link">
+    Checking to see if the template will render.
+  </a>
+  
+    <nav class="md-nav" aria-label="Checking to see if the template will render.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rendering-configuration" class="md-nav__link">
+    Rendering configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendering-the-basic_bgp_rendersls-state" class="md-nav__link">
+    rendering the basic_bgp_render.sls state
+  </a>
+  
+    <nav class="md-nav" aria-label="rendering the basic_bgp_render.sls state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-pyeapi-salt-module-to-push-config" class="md-nav__link">
+    Using the pyeapi salt module to push config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-or-exec-into-either-devices" class="md-nav__link">
+    SSH or exec into either devices.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -455,7 +623,116 @@
                 
                   <h1>basic bgp</h1>
                 
-                
+                <p><img alt="BGP topology" src="../images/basic_bgp.jpg?raw=true" /></p>
+<p>In this example we will render a configuration that will render configurations for all devices to create a full BGP configuration using the saltstack <a href="https://docs.saltstack.com/en/latest/ref/states/all/salt.states.module.html">state execution module</a> called state.sls. </p>
+<h2 id="make-sure-that-all-proxy-minions-are-running">Make sure that all proxy minions are running.</h2>
+<pre><code>root@a00c23e5231c:/srv/salt# salt '*' test.ping
+base_lab_Leaf1:
+    True
+base_lab_Spine2:
+    True
+base_lab_Spine1:
+    True
+base_lab_Leaf2:
+    True
+</code></pre>
+<p>Everything  to make the state work is located within the /srv/salt/states directory.  Since the file roots use that as a directory salt is able to serve those files to the minions.</p>
+<h2 id="salt-state-basic_bgp_rendersls">Salt state basic_bgp_render.sls</h2>
+<pre><code>{% set hostname = grains.get('host') %}
+render the output:
+  file.managed:
+    - name: /srv/salt/templates/intended/configs/{{ hostname }}.cfg
+    - source: /srv/salt/templates/basic_bgp.j2
+    - template: jinja
+</code></pre>
+<p>Taking a look at this the state this will take a device like base_lab_leaf1 and use the jinja template which is located within /srv/salt/templates/basic_bgp.j2 and will render this using Jinja and save the output within /srv/salt/templates/intended/configs/base_lab_Leaf1.cfg.  </p>
+<p>Just a small snippet of the jinja2 template.</p>
+<pre><code>{% set hostname = grains.get('host') -%}
+{% set template_location = '/srv/salt/templates/intended/structured_configs/' + hostname + '.yaml' -%}
+{% import_yaml template_location as device_info -%}
+{% if device_info['leaf_allowed_vlans'] is defined and device_info['leaf_allowed_vlans'] is not none -%}
+{% for vlan in device_info['leaf_allowed_vlans'] -%}
+vlan {{ vlan }}
+</code></pre>
+<h2 id="checking-to-see-if-the-template-will-render">Checking to see if the template will render.</h2>
+<pre><code>root@a00c23e5231c:/srv/salt# salt 'base_lab_Leaf1' slsutil.renderer /srv/salt/templates/basic_bgp.j2 'jinja'
+base_lab_Leaf1:
+vlan 130 
+! 
+vlan 131 
+! 
+vlan 140 
+!
+hostname base_lab_Leaf1
+</code></pre>
+<p>To explain how this works this salt command will taget base_lab_Leaf1 and use the <a href="https://docs.saltstack.com/en/master/ref/modules/all/salt.modules.slsutil.html#salt.modules.slsutil.renderer">slsutil module and rendere function</a> just to make sure that this rendering will actually work.</p>
+<p>Now that we know this will render correctly lets render all files.</p>
+<h3 id="rendering-configuration">Rendering configuration</h3>
+<h2 id="rendering-the-basic_bgp_rendersls-state">rendering the basic_bgp_render.sls state</h2>
+<pre><code>root@a00c23e5231c:/srv/salt# salt '*' state.sls basic_bgp_render 
+base_lab_Spine1:
+----------
+          ID: render the output
+    Function: file.managed
+        Name: /srv/salt/templates/intended/configs/base_lab_Spine1.cfg
+      Result: True
+     Comment: File /srv/salt/templates/intended/configs/base_lab_Spine1.cfg is in the correct state
+     Started: 15:20:53.617619
+    Duration: 425.391 ms
+     Changes:   
+</code></pre>
+<p>The config is currently located within the /srv/salt/templates/intended/configs/base_lab_Spine1.cfg ready to be pushed out to all the devices a long with spine2,leaf1 and leaf2.</p>
+<pre><code>root@a00c23e5231c:/srv/salt# ls -l templates/intended/configs/
+total 32
+-rwxr-xr-x 1 saltdev saltdev 7792 Nov 10 12:06 base_lab_Leaf1.cfg
+-rwxr-xr-x 1 saltdev saltdev 7798 Nov 10 12:06 base_lab_Leaf2.cfg
+-rwxr-xr-x 1 saltdev saltdev 2104 Nov 10 12:06 base_lab_Spine1.cfg
+-rwxr-xr-x 1 saltdev saltdev 2104 Nov 10 12:06 base_lab_Spine2.cfg
+</code></pre>
+<h3 id="using-the-pyeapi-salt-module-to-push-config">Using the pyeapi salt module to push config</h3>
+<p>We will use the <a href="https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.arista_pyeapi.html">pyeapi salt state module</a> to push each of the configs to the devices.</p>
+<p>Example of /srv/salt/states/push_config.sls</p>
+<pre><code>{% set hostname = grains.get('host') %}
+pyeapi.config:
+  module.run:
+    - config_file: /srv/salt/templates/intended/configs/{{hostname}}.cfg
+</code></pre>
+<p>This is rather simple.  This state will simply push out the configuration for each device based off of its own hostname.</p>
+<pre><code>root@a00c23e5231c:/srv/salt# salt '*' state.sls push_config
+base_lab_Spine2:
+----------
+          ID: pyeapi.config
+    Function: module.run
+      Result: True
+     Comment: Module function pyeapi.config executed
+     Started: 15:28:36.625957
+    Duration: 2562.588 ms
+     Changes:   
+              ----------
+              ret:
+                  --- 
+                  +++ 
+                  @@ -1,23 +1,26 @@
+                  +!
+                  +transceiver qsfp default-mode 4x10G
+                   !
+                   service routing protocols model multi-agent
+                   !
+                   logging host 1.2.3.4 514
+                   !
+                  -hostname spine2
+                  +hostname base_lab_Spine2
+</code></pre>
+<p>Truncated most of the push for length of each device.</p>
+<h3 id="ssh-or-exec-into-either-devices">SSH or exec into either devices.</h3>
+<pre><code>base_lab_Leaf2#show ip bgp summary 
+BGP summary information for VRF default
+Router identifier 192.168.255.6, local AS number 65102
+Neighbor Status Codes: m - Under maintenance
+  Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  10.0.0.6         4  65000              7         7    0    0 00:01:32 Estab   4      4
+  10.1.0.6         4  65000              7         7    0    0 00:01:32 Estab   4      4
+</code></pre>
                 
               
               
