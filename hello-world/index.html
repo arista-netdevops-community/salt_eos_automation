@@ -1,0 +1,1880 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.3">
+    
+    
+      
+        <title>Hello world guided demo - Salt Arista EOS automation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3b61ea93.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffc105">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="amber" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#about-this-guided-hello-world" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Salt Arista EOS automation" class="md-header-nav__button md-logo" aria-label="Salt Arista EOS automation">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Salt Arista EOS automation
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              Hello world guided demo
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Salt Arista EOS automation" class="md-nav__button md-logo" aria-label="Salt Arista EOS automation">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Salt Arista EOS automation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href=".." class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    
+    <label class="md-nav__link" for="nav-2">
+      Why Salt?
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Why Salt?" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Why Salt?
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../salt-general/" class="md-nav__link">
+      Purpose of this repo
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Hello world guided demo
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Hello world guided demo
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about-this-guided-hello-world" class="md-nav__link">
+    About this guided hello world
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-this-hello-world-demo" class="md-nav__link">
+    How to use this hello world demo
+  </a>
+  
+    <nav class="md-nav" aria-label="How to use this hello world demo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clone-the-repository" class="md-nav__link">
+    Clone the repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-to-the-local-repository" class="md-nav__link">
+    Move to the local repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-an-image-from-the-dockerfile" class="md-nav__link">
+    Build an image from the Dockerfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-the-saltstack-pillar" class="md-nav__link">
+    Update the SaltStack pillar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-container" class="md-nav__link">
+    Create a container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-to-the-container" class="md-nav__link">
+    Move to the container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saltstack-configuration-directory-and-configuration-files" class="md-nav__link">
+    SaltStack configuration directory and configuration files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-salt-master-and-salt-minion" class="md-nav__link">
+    Start salt-master and salt-minion
+  </a>
+  
+    <nav class="md-nav" aria-label="Start salt-master and salt-minion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-python-from-the-host" class="md-nav__link">
+    Using python from the host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or-using-ubuntu-services-from-the-container" class="md-nav__link">
+    Or using Ubuntu services from the container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or-using-saltstack-command-line-from-the-container" class="md-nav__link">
+    Or using SaltStack command-line from the container
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-a-salt-proxy-daemon-for-each-device" class="md-nav__link">
+    Start a salt-proxy daemon for each device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-if-the-keys-are-accepted" class="md-nav__link">
+    Check if the keys are accepted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-if-the-minion-and-proxies-are-up-and-responding-to-the-master" class="md-nav__link">
+    Test if the minion and proxies are up and responding to the master
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grains-module-usage-examples" class="md-nav__link">
+    Grains module usage examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-module-usage-examples" class="md-nav__link">
+    Pillar module usage examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-saltstack-targeting-system" class="md-nav__link">
+    About SaltStack targeting system
+  </a>
+  
+    <nav class="md-nav" aria-label="About SaltStack targeting system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-list" class="md-nav__link">
+    Using list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-regex" class="md-nav__link">
+    Using regex
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-grains" class="md-nav__link">
+    Using grains
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-nodegroups" class="md-nav__link">
+    Using nodegroups
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-saltstack-modules" class="md-nav__link">
+    About SaltStack modules
+  </a>
+  
+    <nav class="md-nav" aria-label="About SaltStack modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-modules" class="md-nav__link">
+    List modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-functions-for-a-module" class="md-nav__link">
+    List the functions for a module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-the-documentation-for-a-module" class="md-nav__link">
+    Get the documentation for a module
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-templates" class="md-nav__link">
+    About templates
+  </a>
+  
+    <nav class="md-nav" aria-label="About templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-if-a-template-renders" class="md-nav__link">
+    Check if a template renders
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-a-template" class="md-nav__link">
+    Render a template
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#napalm-proxy-usage-examples" class="md-nav__link">
+    Napalm proxy usage examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Napalm proxy usage examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#net-module" class="md-nav__link">
+    net module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#napalm-module" class="md-nav__link">
+    napalm module
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netmiko-proxy-usage-examples" class="md-nav__link">
+    Netmiko proxy usage examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyeapi-execution-module-usage-examples" class="md-nav__link">
+    pyeapi execution module usage examples
+  </a>
+  
+    <nav class="md-nav" aria-label="pyeapi execution module usage examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-run-pyeapi-execution-module-in-a-sls-file" class="md-nav__link">
+    How to run pyeapi execution module in a sls file
+  </a>
+  
+    <nav class="md-nav" aria-label="How to run pyeapi execution module in a sls file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-collect-show-commands" class="md-nav__link">
+    To collect show commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to-configure-devices-with-a-template" class="md-nav__link">
+    To configure devices with a template
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to-configure-devices-with-a-file" class="md-nav__link">
+    To configure devices with a file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-execution-modules" class="md-nav__link">
+    Writing Execution Modules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#saltstack-source-code" class="md-nav__link">
+    SaltStack Source code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-to-the-container_1" class="md-nav__link">
+    Move to the container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-basic-information-about-the-operating-system" class="md-nav__link">
+    Print basic information about the operating system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-installed-python-packages" class="md-nav__link">
+    List the installed python packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-saltstack-version" class="md-nav__link">
+    Check the SaltStack Version
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saltstack-help" class="md-nav__link">
+    SaltStack help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verbose" class="md-nav__link">
+    Verbose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-saltstack-in-foreground-with-a-debug-log-level" class="md-nav__link">
+    Start SaltStack in foreground with a debug log level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-log" class="md-nav__link">
+    Check log
+  </a>
+  
+    <nav class="md-nav" aria-label="Check log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-kill-a-process" class="md-nav__link">
+    To kill a process
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcpdump" class="md-nav__link">
+    tcpdump
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#watch-the-event-bus" class="md-nav__link">
+    Watch the event bus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-port-connectivity" class="md-nav__link">
+    Check port connectivity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    
+    <label class="md-nav__link" for="nav-4">
+      install
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="install" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        install
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../prerequisite/" class="md-nav__link">
+      prerequisite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../install/" class="md-nav__link">
+      install
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  
+  <li class="md-nav__item md-nav__item--nested">
+    
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    
+    <label class="md-nav__link" for="nav-5">
+      Salt Arista Labs
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Salt Arista Labs" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Salt Arista Labs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../basic_bgp/" class="md-nav__link">
+      basic bgp
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../filestructure/" class="md-nav__link">
+      Salt File structure
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../minions/" class="md-nav__link">
+      Proxy minions and agents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../bus/" class="md-nav__link">
+      ZeroMQ bus
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../grains/" class="md-nav__link">
+      Grains
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../pillars/" class="md-nav__link">
+      Pillars
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../states/" class="md-nav__link">
+      States
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../reactors/" class="md-nav__link">
+      Reactors
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../forumlas.md" class="md-nav__link">
+      Forumlas
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../cherryapi/" class="md-nav__link">
+      Salt api
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../sproxy/" class="md-nav__link">
+      Sproxy
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../saltmines/" class="md-nav__link">
+      Salt mines
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+
+  <li class="md-nav__item">
+    <a href="../links/" class="md-nav__link">
+      Salt Links
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about-this-guided-hello-world" class="md-nav__link">
+    About this guided hello world
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-this-hello-world-demo" class="md-nav__link">
+    How to use this hello world demo
+  </a>
+  
+    <nav class="md-nav" aria-label="How to use this hello world demo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clone-the-repository" class="md-nav__link">
+    Clone the repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-to-the-local-repository" class="md-nav__link">
+    Move to the local repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-an-image-from-the-dockerfile" class="md-nav__link">
+    Build an image from the Dockerfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-the-saltstack-pillar" class="md-nav__link">
+    Update the SaltStack pillar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-container" class="md-nav__link">
+    Create a container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-to-the-container" class="md-nav__link">
+    Move to the container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saltstack-configuration-directory-and-configuration-files" class="md-nav__link">
+    SaltStack configuration directory and configuration files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-salt-master-and-salt-minion" class="md-nav__link">
+    Start salt-master and salt-minion
+  </a>
+  
+    <nav class="md-nav" aria-label="Start salt-master and salt-minion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-python-from-the-host" class="md-nav__link">
+    Using python from the host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or-using-ubuntu-services-from-the-container" class="md-nav__link">
+    Or using Ubuntu services from the container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or-using-saltstack-command-line-from-the-container" class="md-nav__link">
+    Or using SaltStack command-line from the container
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-a-salt-proxy-daemon-for-each-device" class="md-nav__link">
+    Start a salt-proxy daemon for each device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-if-the-keys-are-accepted" class="md-nav__link">
+    Check if the keys are accepted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-if-the-minion-and-proxies-are-up-and-responding-to-the-master" class="md-nav__link">
+    Test if the minion and proxies are up and responding to the master
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grains-module-usage-examples" class="md-nav__link">
+    Grains module usage examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pillar-module-usage-examples" class="md-nav__link">
+    Pillar module usage examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-saltstack-targeting-system" class="md-nav__link">
+    About SaltStack targeting system
+  </a>
+  
+    <nav class="md-nav" aria-label="About SaltStack targeting system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-list" class="md-nav__link">
+    Using list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-regex" class="md-nav__link">
+    Using regex
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-grains" class="md-nav__link">
+    Using grains
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-nodegroups" class="md-nav__link">
+    Using nodegroups
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-saltstack-modules" class="md-nav__link">
+    About SaltStack modules
+  </a>
+  
+    <nav class="md-nav" aria-label="About SaltStack modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-modules" class="md-nav__link">
+    List modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-functions-for-a-module" class="md-nav__link">
+    List the functions for a module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-the-documentation-for-a-module" class="md-nav__link">
+    Get the documentation for a module
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-templates" class="md-nav__link">
+    About templates
+  </a>
+  
+    <nav class="md-nav" aria-label="About templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-if-a-template-renders" class="md-nav__link">
+    Check if a template renders
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-a-template" class="md-nav__link">
+    Render a template
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#napalm-proxy-usage-examples" class="md-nav__link">
+    Napalm proxy usage examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Napalm proxy usage examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#net-module" class="md-nav__link">
+    net module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#napalm-module" class="md-nav__link">
+    napalm module
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netmiko-proxy-usage-examples" class="md-nav__link">
+    Netmiko proxy usage examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyeapi-execution-module-usage-examples" class="md-nav__link">
+    pyeapi execution module usage examples
+  </a>
+  
+    <nav class="md-nav" aria-label="pyeapi execution module usage examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-run-pyeapi-execution-module-in-a-sls-file" class="md-nav__link">
+    How to run pyeapi execution module in a sls file
+  </a>
+  
+    <nav class="md-nav" aria-label="How to run pyeapi execution module in a sls file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-collect-show-commands" class="md-nav__link">
+    To collect show commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to-configure-devices-with-a-template" class="md-nav__link">
+    To configure devices with a template
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to-configure-devices-with-a-file" class="md-nav__link">
+    To configure devices with a file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-execution-modules" class="md-nav__link">
+    Writing Execution Modules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#saltstack-source-code" class="md-nav__link">
+    SaltStack Source code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-to-the-container_1" class="md-nav__link">
+    Move to the container
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-basic-information-about-the-operating-system" class="md-nav__link">
+    Print basic information about the operating system
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-the-installed-python-packages" class="md-nav__link">
+    List the installed python packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-saltstack-version" class="md-nav__link">
+    Check the SaltStack Version
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saltstack-help" class="md-nav__link">
+    SaltStack help
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verbose" class="md-nav__link">
+    Verbose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-saltstack-in-foreground-with-a-debug-log-level" class="md-nav__link">
+    Start SaltStack in foreground with a debug log level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-log" class="md-nav__link">
+    Check log
+  </a>
+  
+    <nav class="md-nav" aria-label="Check log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-kill-a-process" class="md-nav__link">
+    To kill a process
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcpdump" class="md-nav__link">
+    tcpdump
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#watch-the-event-bus" class="md-nav__link">
+    Watch the event bus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-port-connectivity" class="md-nav__link">
+    Check port connectivity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Hello world guided demo</h1>
+                
+                <h2 id="about-this-guided-hello-world">About this guided hello world</h2>
+<p>The content of this guided hello world is available in this reposiroy https://github.com/arista-netdevops-community/saltstack-hello-world</p>
+<p>In this hello world, SaltStack is running in one single container.
+The SaltStack content of this hello world demo has been designed for one single SaltStack container.</p>
+<h2 id="how-to-use-this-hello-world-demo">How to use this hello world demo</h2>
+<h3 id="clone-the-repository">Clone the repository</h3>
+<pre><code>git clone https://github.com/arista-netdevops-community/saltstack-hello-world.git
+</code></pre>
+<h3 id="move-to-the-local-repository">Move to the local repository</h3>
+<pre><code>cd saltstack-hello-world
+</code></pre>
+<h3 id="build-an-image-from-the-dockerfile">Build an image from the Dockerfile</h3>
+<pre><code>docker build --tag salt_eos:1.5 .
+</code></pre>
+<p>List images and verify</p>
+<pre><code>docker images | grep salt_eos
+</code></pre>
+<h3 id="update-the-saltstack-pillar">Update the SaltStack pillar</h3>
+<p>Update the <a href="pillar">pillar</a> with your devices IP/username/password</p>
+<h3 id="create-a-container">Create a container</h3>
+<pre><code>docker run -d -t --rm --name salt \
+-p 5001:5001 -p 4505:4505 -p 4506:4506 \
+-v $PWD/master:/etc/salt/master \
+-v $PWD/proxy:/etc/salt/proxy \
+-v $PWD/minion:/etc/salt/minion \
+-v $PWD/pillar/.:/srv/pillar/. \
+-v $PWD/states/.:/srv/salt/states/. \
+-v $PWD/templates/.:/srv/salt/templates/. \
+-v $PWD/eos/.:/srv/salt/eos \
+-v $PWD/_modules/.:/srv/salt/_modules/. \
+salt_eos:1.5
+</code></pre>
+<p>List containers and verify</p>
+<pre><code>docker ps | grep salt
+</code></pre>
+<h3 id="move-to-the-container">Move to the container</h3>
+<pre><code>docker exec -it salt bash
+</code></pre>
+<h3 id="saltstack-configuration-directory-and-configuration-files">SaltStack configuration directory and configuration files</h3>
+<p>SaltStack default configuration directory</p>
+<pre><code>ls /etc/salt/
+</code></pre>
+<p>Using the above <code>docker run</code> command:</p>
+<p><a href="master">master</a> configuration file</p>
+<pre><code>more /etc/salt/master
+</code></pre>
+<p><a href="proxy">proxy</a> configuration file</p>
+<pre><code>more /etc/salt/proxy
+</code></pre>
+<p><a href="minion">minion</a> configuration file</p>
+<pre><code>more /etc/salt/minion
+</code></pre>
+<h3 id="start-salt-master-and-salt-minion">Start salt-master and salt-minion</h3>
+<p>This can be done:
+- using the python script <a href="start_saltstack.py">start_saltstack.py</a> from the host
+- or manually from the container using
+  - Ubuntu services
+  - or SaltStack command-line</p>
+<h4 id="using-python-from-the-host">Using python from the host</h4>
+<pre><code>python3 start_saltstack.py
+</code></pre>
+<h4 id="or-using-ubuntu-services-from-the-container">Or using Ubuntu services from the container</h4>
+<p>List all the services</p>
+<pre><code>service --status-all
+</code></pre>
+<p>we can use start/stop/restart/status.</p>
+<pre><code>service salt-master start
+service salt-master status
+</code></pre>
+<pre><code>service salt-minion start
+service salt-minion status
+</code></pre>
+<h4 id="or-using-saltstack-command-line-from-the-container">Or using SaltStack command-line from the container</h4>
+<p>Start as a daemon (in background)</p>
+<pre><code>salt-master -d
+salt-minion -d
+</code></pre>
+<pre><code>ps -ef | grep salt
+</code></pre>
+<h3 id="start-a-salt-proxy-daemon-for-each-device">Start a salt-proxy daemon for each device</h3>
+<p>If you did not use the python script <a href="start_saltstack.py">start_saltstack.py</a> you also need to start a salt-proxy daemon for each device</p>
+<pre><code>salt-proxy --proxyid=leaf1 -d
+salt-proxy --proxyid=leaf2 -d
+salt-proxy --proxyid=spine1 -d
+salt-proxy --proxyid=spine2 -d
+</code></pre>
+<pre><code>ps -ef | grep proxy
+</code></pre>
+<h3 id="check-if-the-keys-are-accepted">Check if the keys are accepted</h3>
+<p>Help</p>
+<pre><code>salt-key --help
+</code></pre>
+<p>To list all keys</p>
+<pre><code>salt-key -L
+</code></pre>
+<p>Run this command to accept one pending key</p>
+<pre><code>salt-key -a minion1 -y
+</code></pre>
+<p>Run this command to accept all pending keys</p>
+<pre><code>salt-key -A -y
+</code></pre>
+<p>Or use this in the <a href="master">master</a> configuration file to auto accept keys</p>
+<pre><code>auto_accept: True
+</code></pre>
+<h3 id="test-if-the-minion-and-proxies-are-up-and-responding-to-the-master">Test if the minion and proxies are up and responding to the master</h3>
+<p>It is not an ICMP ping</p>
+<pre><code>salt minion1 test.ping
+salt leaf1 test.ping
+salt '*' test.ping
+</code></pre>
+<h3 id="grains-module-usage-examples">Grains module usage examples</h3>
+<pre><code>salt 'leaf1' grains.items
+salt 'leaf1' grains.ls
+</code></pre>
+<pre><code>salt 'leaf1' grains.item os vendor version host
+</code></pre>
+<h3 id="pillar-module-usage-examples">Pillar module usage examples</h3>
+<pre><code>salt 'leaf1' pillar.ls
+salt 'leaf1' pillar.items
+</code></pre>
+<pre><code>salt 'leaf1' pillar.get pyeapi
+</code></pre>
+<pre><code>salt 'leaf1' pillar.item  pyeapi vlans
+</code></pre>
+<h3 id="about-saltstack-targeting-system">About SaltStack targeting system</h3>
+<p>It is very flexible.</p>
+<h4 id="using-list">Using list</h4>
+<pre><code>salt -L &quot;minion1, leaf1&quot; test.ping
+</code></pre>
+<h4 id="using-regex">Using regex</h4>
+<pre><code>salt &quot;leaf*&quot; test.ping
+salt '*' test.ping
+</code></pre>
+<h4 id="using-grains">Using grains</h4>
+<pre><code>salt -G 'os:eos' test.ping
+salt -G 'os:eos' cmd.run 'uname'
+salt -G 'os:eos' net.cli 'show version'
+</code></pre>
+<h4 id="using-nodegroups">Using nodegroups</h4>
+<p>Include this in the <a href="master">master</a> configuration file:</p>
+<pre><code>nodegroups:
+ leaves: 'L@leaf1,leaf2'
+ spines:
+  - spine1
+  - spine2
+ eos: 'G@os:eos'
+</code></pre>
+<pre><code>salt -N eos test.ping
+salt -N leaves test.ping
+salt -N spines test.ping
+</code></pre>
+<h3 id="about-saltstack-modules">About SaltStack modules</h3>
+<h4 id="list-modules">List modules</h4>
+<pre><code>salt 'leaf1' sys.list_modules 'napalm*'
+</code></pre>
+<h4 id="list-the-functions-for-a-module">List the functions for a module</h4>
+<pre><code>salt 'leaf1' sys.list_functions net
+salt 'leaf1' sys.list_functions napalm
+salt 'leaf1' sys.list_functions napalm_net
+</code></pre>
+<p><code>net</code> and <code>napalm_net</code> is the same module.</p>
+<h4 id="get-the-documentation-for-a-module">Get the documentation for a module</h4>
+<p>Example with Napalm</p>
+<pre><code>salt 'leaf1' sys.doc net
+salt 'leaf1' sys.doc net.traceroute
+</code></pre>
+<p>or</p>
+<pre><code>salt 'leaf1' net  -d
+salt 'leaf1' net.traceroute  -d
+</code></pre>
+<h3 id="about-templates">About templates</h3>
+<h4 id="check-if-a-template-renders">Check if a template renders</h4>
+<p>The file <a href="templates/vlans.j2">vlans.j2</a> is in the master file server</p>
+<pre><code>salt '*' slsutil.renderer salt://vlans.j2 'jinja'
+</code></pre>
+<h4 id="render-a-template">Render a template</h4>
+<p>The file <a href="states/render.sls">render.sls</a> and the file <a href="templates/vlans.j2">vlans.j2</a> are in the master file server</p>
+<pre><code>salt -G 'os:eos' state.sls render
+ls  /srv/salt/eos/*cfg
+</code></pre>
+<h3 id="napalm-proxy-usage-examples">Napalm proxy usage examples</h3>
+<p>This repository uses the Napalm proxy</p>
+<p><a href="https://github.com/saltstack/salt/blob/master/salt/proxy/napalm.py">Napalm proxy source code</a></p>
+<p>Pillar example for Napalm proxy (<a href="pillar/leaf1.sls">pillar/leaf1.sls</a>):</p>
+<pre><code>proxy:
+  proxytype: napalm
+  driver: eos
+  host: 10.73.1.105
+  username: ansible
+  password: ansible
+</code></pre>
+<p>The Napalm proxy uses different modules to interact with network devices.</p>
+<h4 id="net-module">net module</h4>
+<p><code>net</code> and <code>napalm_net</code> is the same module.
+<a href="https://github.com/saltstack/salt/blob/master/salt/modules/napalm_network.py">net module source code</a></p>
+<p>Examples:</p>
+<p>we can use the <code>net</code> or <code>napalm.net</code> commands:</p>
+<pre><code>salt 'leaf*' net.load_config text='vlan 8' test=True
+</code></pre>
+<p>The file <a href="eos/vlan.cfg">vlan.cfg</a> is available in the master file server</p>
+<pre><code>salt 'leaf*' net.load_config filename='salt://vlan.cfg' test=True
+</code></pre>
+<pre><code>salt 'leaf*' net.cli 'show version' 'show vlan'
+salt 'leaf1' net.cli 'show vlan | json'
+salt 'leaf1' net.cli 'show version' --out=json
+salt 'leaf1' net.cli 'show version' --output=json
+salt 'leaf1' net.cli 'show vlan' --output-file=show_vlan.txt
+salt 'leaf1' net.cli 'show version'  &gt; show_version.txt
+</code></pre>
+<pre><code>salt 'leaf1' net.lldp
+salt 'leaf1' net.lldp interface='Ethernet1'
+</code></pre>
+<pre><code>salt 'leaf1' net.arp
+salt 'leaf1' net.connected
+salt 'leaf1' net.facts
+salt 'leaf1' net.interfaces
+salt 'leaf1' net.ipaddrs
+salt 'leaf1' net.config source=running --output-file=leaf1_running.cfg
+</code></pre>
+<h4 id="napalm-module">napalm module</h4>
+<p><a href="https://github.com/saltstack/salt/blob/master/salt/modules/napalm_mod.py">napalm module source code</a></p>
+<p>Examples:</p>
+<pre><code>salt 'leaf1' napalm.alive
+salt 'leaf1' napalm.pyeapi_run_commands 'show version' encoding=json
+salt 'leaf1' napalm.pyeapi_run_commands 'show version' --out=raw
+salt 'leaf1' napalm.pyeapi_run_commands 'show version' --out=json
+</code></pre>
+<p><code>napalm.pyeapi_run_commands</code> forwards to <code>pyeapi.run_commands</code></p>
+<h3 id="netmiko-proxy-usage-examples">Netmiko proxy usage examples</h3>
+<p>The Netmiko execution module can be used with a Netmiko proxy</p>
+<p><a href="https://github.com/saltstack/salt/blob/master/salt/modules/netmiko_mod.py">Netmiko execution module source code</a></p>
+<p><a href="https://github.com/saltstack/salt/blob/master/salt/proxy/netmiko_px.py">Netmiko proxy source code</a></p>
+<p>This repository uses the Napalm proxy.
+You can replace it with a Netmiko proxy.
+Here's an example of pillar for Netmiko proxy:</p>
+<pre><code>proxy:
+  proxytype: netmiko
+  device_type: arista_eos
+  host: spine1
+  ip: 10.73.1.101
+  username: ansible
+  password: ansible
+</code></pre>
+<p>Examples:</p>
+<pre><code>salt '*' netmiko.send_command -d
+</code></pre>
+<pre><code>salt 'spine1' netmiko.send_command 'show version'
+</code></pre>
+<h3 id="pyeapi-execution-module-usage-examples">pyeapi execution module usage examples</h3>
+<p>The <a href="https://github.com/saltstack/salt/blob/master/salt/modules/arista_pyeapi.py">pyeapi execution module</a> can be used to interact with Arista switches.
+It is flexible enough to execute the commands both when running under an pyeapi Proxy, as well as running under a Regular Minion by specifying the connection arguments, i.e., <code>host</code>, <code>username</code>, <code>password</code> <code>transport</code> etc.</p>
+<p>Examples:</p>
+<pre><code>salt 'leaf1' pyeapi.run_commands 'show version'
+salt 'leaf1' pyeapi.get_config as_string=True
+</code></pre>
+<h4 id="how-to-run-pyeapi-execution-module-in-a-sls-file">How to run pyeapi execution module in a sls file</h4>
+<h5 id="to-collect-show-commands">To collect show commands</h5>
+<pre><code>salt -G 'os:eos' state.sls collect_commands
+ls /tmp/*/*.json
+</code></pre>
+<h5 id="to-configure-devices-with-a-template">To configure devices with a template</h5>
+<p>The file <a href="states/push_vlans.sls">push_vlans.sls</a> and the file <a href="templates/vlans.j2">vlans.j2</a> are in the master file server</p>
+<pre><code>salt 'leaf1' state.sls push_vlans
+</code></pre>
+<p>or</p>
+<pre><code>salt 'leaf1' state.apply push_vlans
+</code></pre>
+<p>Verify:</p>
+<pre><code>salt 'leaf1' net.cli 'show vlan'
+</code></pre>
+<h5 id="to-configure-devices-with-a-file">To configure devices with a file</h5>
+<p>The file <a href="states/render.sls">render.sls</a> and the file <a href="templates/vlans.j2">vlans.j2</a> are in the master file server</p>
+<pre><code>salt -G 'os:eos' state.sls render
+ls  /srv/salt/eos/*cfg
+</code></pre>
+<p>The file <a href="states/push_config.sls">push_config.sls</a> is in the master file server</p>
+<pre><code>salt -G 'os:eos' state.sls push_config
+</code></pre>
+<h3 id="writing-execution-modules">Writing Execution Modules</h3>
+<p>A Salt execution module is a Python module placed in a directory called <code>_modules</code> at the root of the Salt fileserver.
+In this setup the directory <code>_modules</code> is <code>/srv/salt/_modules</code></p>
+<p>The execution module <a href="_modules/custom_eos.py">_modules/custom_eos.py</a> is <code>/srv/salt/_modules/custom_eos.py</code></p>
+<pre><code>salt 'leaf1' custom_eos.version
+salt 'leaf1' custom_eos.model
+</code></pre>
+<p>If you create a new execution module, run this command to sync execution modules placed in the <code>_modules</code> directory:</p>
+<pre><code>salt '*' saltutil.sync_modules
+</code></pre>
+<p>After loading the modules, you can use them</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="saltstack-source-code">SaltStack Source code</h3>
+<p>https://github.com/saltstack/salt</p>
+<h3 id="move-to-the-container_1">Move to the container</h3>
+<pre><code>docker exec -it salt bash
+</code></pre>
+<h3 id="print-basic-information-about-the-operating-system">Print basic information about the operating system</h3>
+<pre><code>uname -a
+lsb_release -a
+</code></pre>
+<h3 id="list-the-installed-python-packages">List the installed python packages</h3>
+<pre><code>pip3 list
+pip3 freeze
+</code></pre>
+<h3 id="check-the-saltstack-version">Check the SaltStack Version</h3>
+<pre><code>salt --versions-report
+salt --version
+salt-master --version
+salt-minion --version
+salt-proxy --version
+</code></pre>
+<h3 id="saltstack-help">SaltStack help</h3>
+<pre><code>salt --help
+</code></pre>
+<h3 id="verbose">Verbose</h3>
+<p>Use <code>-v</code> to also display the job id:</p>
+<pre><code>salt 'leaf1' net.cli 'show version' 'show vlan' -v
+</code></pre>
+<h3 id="start-saltstack-in-foreground-with-a-debug-log-level">Start SaltStack in foreground with a debug log level</h3>
+<pre><code>salt-master -l debug
+</code></pre>
+<pre><code>salt-minion -l debug
+</code></pre>
+<pre><code>salt-proxy --proxyid=leaf1 -l debug
+</code></pre>
+<pre><code>ps -ef | grep salt
+</code></pre>
+<h3 id="check-log">Check log</h3>
+<pre><code>more /var/log/salt/master
+more /var/log/salt/proxy
+more /var/log/salt/minion
+</code></pre>
+<pre><code>tail -f /var/log/salt/master
+</code></pre>
+<h4 id="to-kill-a-process">To kill a process</h4>
+<pre><code>ps -ef | grep salt
+kill PID
+</code></pre>
+<h3 id="tcpdump">tcpdump</h3>
+<p>run this command on the master if you need to display received packets</p>
+<pre><code>tcpdump -i &lt; interface &gt; port &lt; port &gt; -vv
+</code></pre>
+<p>Example</p>
+<pre><code>tcpdump -i eth0 port 5001 -vv
+</code></pre>
+<h3 id="watch-the-event-bus">Watch the event bus</h3>
+<p>run this command on the master if you need to watch the event bus:</p>
+<pre><code>salt-run state.event pretty=True
+</code></pre>
+<p>run this command to fire an event:</p>
+<pre><code>salt &quot;minion1&quot; event.fire_master '{&quot;data&quot;: &quot;message to be sent in the event&quot;}' 'tag/blabla'
+</code></pre>
+<h3 id="check-port-connectivity">Check port connectivity</h3>
+<p>From outside the container, check port connectivity with the nc command:</p>
+<p>From the host where the container runs:</p>
+<pre><code>nc -v -z &lt; salt_container_ip &gt; 4505
+nc -v -z &lt; salt_container_ip &gt; 4506
+</code></pre>
+<p>Example if the container ip is 172.17.0.2:</p>
+<pre><code>nc -v -z 172.17.0.2 4505
+nc -v -z 172.17.0.2 4506
+</code></pre>
+<p>From another host:</p>
+<pre><code>nc -v -z &lt; host_that_has_the_container &gt; 4505
+nc -v -z &lt; host_that_has_the_container &gt; 4506
+</code></pre>
+<p>Example if the host ip where the container runs is 10.83.28.180:</p>
+<pre><code>nc -v -z 10.83.28.180 4505
+nc -v -z 10.83.28.180 4506
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../salt-general/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Purpose of this repo
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../prerequisite/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                prerequisite
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.08c56446.min.js"></script>
+      <script src="../assets/javascripts/bundle.6ced434e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.8c7e0a7e.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
