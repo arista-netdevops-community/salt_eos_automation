@@ -33,7 +33,7 @@ docker images | grep salt_eos
 
 ### Update the SaltStack pillar
 
-Update the [pillar](pillar) with your devices IP/username/password
+Update the [pillar](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/pillar) with your devices IP/username/password
 
 ### Create a container
 
@@ -72,15 +72,15 @@ ls /etc/salt/
 
 Using the above `docker run` command:
 
-[master](master) configuration file
+[master](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/master) configuration file
 ```
 more /etc/salt/master
 ```
-[proxy](proxy) configuration file
+[proxy](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/proxy) configuration file
 ```
 more /etc/salt/proxy
 ```
-[minion](minion) configuration file
+[minion](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/minion) configuration file
 ```
 more /etc/salt/minion
 ```
@@ -88,7 +88,7 @@ more /etc/salt/minion
 ### Start salt-master and salt-minion
 
 This can be done:
-- using the python script [start_saltstack.py](start_saltstack.py) from the host
+- using the python script [start_saltstack.py](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/start_saltstack.py) from the host
 - or manually from the container using
   - Ubuntu services
   - or SaltStack command-line
@@ -126,7 +126,7 @@ ps -ef | grep salt
 
 ### Start a salt-proxy daemon for each device
 
-If you did not use the python script [start_saltstack.py](start_saltstack.py) you also need to start a salt-proxy daemon for each device
+If you did not use the python script [start_saltstack.py](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/start_saltstack.py) you also need to start a salt-proxy daemon for each device
 ```
 salt-proxy --proxyid=leaf1 -d
 salt-proxy --proxyid=leaf2 -d
@@ -158,7 +158,7 @@ Run this command to accept all pending keys
 ```
 salt-key -A -y
 ```
-Or use this in the [master](master) configuration file to auto accept keys
+Or use this in the [master](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/master) configuration file to auto accept keys
 ```
 auto_accept: True
 ```
@@ -217,7 +217,7 @@ salt -G 'os:eos' net.cli 'show version'
 
 #### Using nodegroups
 
-Include this in the [master](master) configuration file:
+Include this in the [master](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/master) configuration file:
 ```
 nodegroups:
  leaves: 'L@leaf1,leaf2'
@@ -264,7 +264,7 @@ salt 'leaf1' net.traceroute  -d
 
 #### Check if a template renders
 
-The file [vlans.j2](templates/vlans.j2) is in the master file server
+The file [vlans.j2](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/templates/vlans.j2) is in the master file server
 
 ```
 salt '*' slsutil.renderer salt://vlans.j2 'jinja'
@@ -272,7 +272,7 @@ salt '*' slsutil.renderer salt://vlans.j2 'jinja'
 
 #### Render a template
 
-The file [render.sls](states/render.sls) and the file [vlans.j2](templates/vlans.j2) are in the master file server
+The file [render.sls](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/states/render.sls) and the file [vlans.j2](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/templates/vlans.j2) are in the master file server
 ```
 salt -G 'os:eos' state.sls render
 ls  /srv/salt/eos/*cfg
@@ -283,7 +283,7 @@ This repository uses the Napalm proxy
 
 [Napalm proxy source code](https://github.com/saltstack/salt/blob/master/salt/proxy/napalm.py)
 
-Pillar example for Napalm proxy ([pillar/leaf1.sls](pillar/leaf1.sls)):
+Pillar example for Napalm proxy ([pillar/leaf1.sls](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/pillar/leaf1.sls)):
 ```
 proxy:
   proxytype: napalm
@@ -306,7 +306,7 @@ we can use the `net` or `napalm.net` commands:
 ```
 salt 'leaf*' net.load_config text='vlan 8' test=True
 ```
-The file [vlan.cfg](eos/vlan.cfg) is available in the master file server
+The file [vlan.cfg](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/eos/vlan.cfg) is available in the master file server
 ```
 salt 'leaf*' net.load_config filename='salt://vlan.cfg' test=True
 ```
@@ -394,7 +394,7 @@ ls /tmp/*/*.json
 ```
 ##### To configure devices with a template
 
-The file [push_vlans.sls](states/push_vlans.sls) and the file [vlans.j2](templates/vlans.j2) are in the master file server
+The file [push_vlans.sls](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/states/push_vlans.sls) and the file [vlans.j2](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/templates/vlans.j2) are in the master file server
 
 ```
 salt 'leaf1' state.sls push_vlans
@@ -409,12 +409,12 @@ salt 'leaf1' net.cli 'show vlan'
 ```
 ##### To configure devices with a file
 
-The file [render.sls](states/render.sls) and the file [vlans.j2](templates/vlans.j2) are in the master file server
+The file [render.sls](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/states/render.sls) and the file [vlans.j2](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/templates/vlans.j2) are in the master file server
 ```
 salt -G 'os:eos' state.sls render
 ls  /srv/salt/eos/*cfg
 ```
-The file [push_config.sls](states/push_config.sls) is in the master file server
+The file [push_config.sls](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/states/push_config.sls) is in the master file server
 ```
 salt -G 'os:eos' state.sls push_config
 ```
@@ -424,7 +424,7 @@ salt -G 'os:eos' state.sls push_config
 A Salt execution module is a Python module placed in a directory called `_modules` at the root of the Salt fileserver.
 In this setup the directory `_modules` is `/srv/salt/_modules`
 
-The execution module [_modules/custom_eos.py](_modules/custom_eos.py) is `/srv/salt/_modules/custom_eos.py`
+The execution module [_modules/custom_eos.py](https://github.com/arista-netdevops-community/saltstack-hello-world/tree/master/_modules/custom_eos.py) is `/srv/salt/_modules/custom_eos.py`
 ```
 salt 'leaf1' custom_eos.version
 salt 'leaf1' custom_eos.model
