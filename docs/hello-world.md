@@ -16,7 +16,7 @@ git clone https://github.com/arista-netdevops-community/saltstack-hello-world.gi
 ### Move to the local repository
 
 ```
-cd saltstack_demo_with_eos_arista
+cd saltstack-hello-world
 ```
 
 ### Build an image from the Dockerfile
