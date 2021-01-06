@@ -4,7 +4,7 @@ theme:
   palette:
     primary: amber
   font:
-    text: Roboto 
+    text: Roboto
   plugins:
     - search
   theme:
@@ -15,22 +15,23 @@ theme:
 nav:
   - Home: index.md
   - Why Salt?:
-      - Purpose of this repo: salt-general.md 
-  - install: 
+      - Purpose of this repo: salt-general.md
+  - Hello world guided demo: hello-world.md
+  - install:
       - prerequisite: prerequisite.md
-      - install: install.md 
+      - install: install.md
   - Salt Arista Labs:
       - basic bgp: basic_bgp.md
-  - Salt File structure: filestructure.md 
+  - Salt File structure: filestructure.md
   - Proxy minions and agents: minions.md
-  - ZeroMQ bus: bus.md 
-  - Grains: grains.md 
-  - Pillars: pillars.md 
-  - States: states.md 
-  - Reactors: reactors.md 
-  - Forumlas: forumlas.md 
-  - Salt api: cherryapi.md 
-  - Sproxy: sproxy.md 
+  - ZeroMQ bus: bus.md
+  - Grains: grains.md
+  - Pillars: pillars.md
+  - States: states.md
+  - Reactors: reactors.md
+  - Forumlas: forumlas.md
+  - Salt api: cherryapi.md
+  - Sproxy: sproxy.md
   - Salt mines: saltmines.md
   - Salt Links: links.md
 
