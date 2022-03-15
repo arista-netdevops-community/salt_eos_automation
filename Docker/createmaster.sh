@@ -21,6 +21,9 @@ echo $TZ
 echo "Getting infrasture packages"
 apt-get update && apt-get install sudo tree wget python-cffi libxslt1-dev libffi-dev libssl-dev default-jre python3-pip python3-dev python-pip python-dev git net-tools iputils-ping mtr vim curl -y 
 
+echo "fixing Error: failed with error code 1 in /tmp/pip-build-pqr94c8_/cryptography/"
+pip3 install --upgrade pip
+
 echo "fixing the default ubuntu pyOpenSSL issue"
 pip3 install --upgrade pyOpenSSL 
 
@@ -53,10 +56,16 @@ rm /etc/salt/master
 touch /etc/salt/master 
 cat $PWD/master >> /etc/salt/master 
 
+echo "Opening minion file and set the minion-id"
+rm /etc/salt/minion
+touch /etc/salt/minion
+cat $PWD/minion >> /etc/salt/minion
+
 echo "Adding proxy information"
 touch /etc/salt/proxy
 echo master: salt >> /etc/salt/proxy
 
 echo "restarting salt-master and starting api-server"
 service salt-master start
+service salt-minion start
 service salt-api start

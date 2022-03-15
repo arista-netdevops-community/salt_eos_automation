@@ -24,5 +24,5 @@ rest_cherrypy:
   port: 8999
   ssl_crt: /etc/pki/tls/certs/localhost.crt
   ssl_key: /etc/pki/tls/certs/localhost.key
-
+auto_accept: True
 master: salt
