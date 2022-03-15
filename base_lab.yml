@@ -12,7 +12,7 @@ links:
 VERSION: 2
 driver: macvlan
 CONF_DIR: './config'
-CEOS_IMAGE: ceosimage:4.23.2F
+CEOS_IMAGE: ceosimage:4.21.15M
 PUBLISH_BASE:
   443/tcp: 9000
   80/tcp: 8800

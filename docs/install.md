@@ -16,7 +16,7 @@ pip install git+https://github.com/networkop/docker-topo.git
 
 #### Run docker topo and salt Docker container.
 `
-docker-topo --create base.yml && docker-topo --create base_lab.yml && docker start salt
+docker-topo --create base_lab.yml && docker start salt
 `
 
 ###### This will create the infrastructure described within the base_lab.yml file 
@@ -87,7 +87,7 @@ base_lab_Leaf1:
 
 #### Destroy the lab 
 `
-docker-topo --destroy base.yml && docker-topo --create base_lab.yml && docker stop salt
+docker-topo --create base_lab.yml && docker stop salt
 `
 
 
